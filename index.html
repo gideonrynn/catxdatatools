@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATxID Data Management Tools</title>
+    <script src="js/choices.js" defer></script>
+    <script src="js/ids.js" defer></script>
+    <script src="js/dates.js" defer></script>
+    <script src="js/duplicates.js" defer></script>
+    <link rel="stylesheet" href="cs/style.css">
+
+</head>
+<body>
+    <div class="navigation">
+        <div class="navigation-items">
+            <a class="current options" id="id" onclick="setSelection(id)" href="#catxidfiddler">CATracks ID Fiddler</a>
+            <a class="options" id="date" onclick="setSelection(id)" href="#dateformatter">Date Formatter</a>
+            <a class="options" id="duplicate" onclick="setSelection(id)" href="#duplicatechecker">Duplicate Checker</a>
+        </div>
+    </div>
+    <div class="container">
+
+        <!-- <div class="wrapper-selections wrapper-one" id="selections">
+            <button class="options" id="id" onclick="setSelection(id)">CATracks ID Fiddler</button>
+            <button class="options" id="date" onclick="setSelection(id)">Date Formatter</button>
+            <button class="options" id="duplicate" onclick="setSelection(id)">Duplicate Checker</button>
+        </div> -->
+
+        <!-- ID Fiddler -->
+        <div class="wrapper-one" id="id-fiddler" style="display:none">
+            <!-- <h1>CATracks ID Fiddler</h1> -->
+            <!-- <div class="wrapper-three"> -->
+                
+                <div class="input-section">            
+                        <textarea class="area-input" rows="20" cols="50" id="input" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+                </div>
+                <div class="button-options">
+                    <!-- <div id="button-comment"> <p></p></div> -->
+                    <button type="button clear" id="clear-left" onclick="clearInputLeft()"><i class="arrow left"> </i>  Clear</button>
+                    <button type="button" id="zero-submit" onclick="addZeroes()">Add Zeroes  <i class="arrow right"></i></button>
+                    <button type="button" id="quotes-submit" onclick="addQuotes()">Apply Quotes  <i class="arrow right"></i></button>
+                    <button type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">Apply Zeroes and Quotes <i class="arrow right"></i></button>
+                    <!-- <button type="button results" id="results-to-input" onclick="copyResultToInput()" disabled><i class="arrow left" > </i>  Copy to Input</button> -->
+                    <button type="button" id="four-line-submit" onclick="fourPerLine()" disabled>Output to 4 Per Line<i class="arrow right"></i></button>
+                    <button type="button clear" id="clear-right" onclick="clearOutputRight()" disabled>Clear  <i class="arrow right"></i></button>
+                    
+                    <!-- <button type="button copy" id="copy" disabled>Copy to Clipboard</button> -->
+                    <!-- <button type="button" id="quotes-submit">Zeroes and Quotes<i class="arrow right"></i></button> -->
+                </div>
+                <div class="output-section">
+                    <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
+                </div>
+            <!-- </div> -->
+           
+        </div>
+
+        <!-- Date Formatter -->
+        <div class="wrapper-two" id="date-formatter" style="display:none">
+            <!-- <h1>Date Formatter</h1> -->
+            <div class="input-section">            
+                <div class="text-input">
+                    <textarea class="area-input" class="two" rows="20" cols="50" id="input" placeholder="Input: M/D/YYYY"></textarea>
+                </div>
+            </div>
+            <div class="button-options">
+                <div id="button-comment"> <p></p></div>
+                <button type="button clear" id="clear-left" onclick="clearOutput(id)"><i class="arrow left"> </i>  Clear</button>
+                <button type="button clear" id="formatMDY" onclick="formatDates(id)"><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
+                <button type="button clear" id="formatYMD" onclick="formatDates(id)"><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
+                <button type="button clear" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
+                <button type="button clear" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
+            </div>
+            <div class="output-section">
+                <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Output: YYYYMMDD" readonly></textarea>
+            </div>
+        </div>
+
+        <!-- Duplicate Check -->
+        <div class="wrapper-three" id="duplicate-checker" style="display:none">
+            <!-- <h1>Duplicate Checker</h1> -->
+            <div class="input-section-one" oninput="runDuplicateValidation()">            
+                <div class="text-input">
+                    <textarea class="area-input" class="three" rows="20" cols="50" id="input" placeholder="Compare 1"></textarea>
+                </div>
+            </div>
+            <div class="button-options">
+                <p><i class="compare arrow right"></i><i class="arrow right compare"></i></p>
+            </div>
+            <div class="input-section-two">            
+                <div class="text-input">
+                    <textarea class="area-input" class="three" rows="20" cols="50" id="input" placeholder="Compare 2"></textarea>
+                </div>
+            </div>
+            <div class="button-options">
+                <p class="compare-result">=</p>
+            </div>
+            <div class="output-section">
+                <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Result" readonly></textarea>
+            </div>
+        </div>
+        <!-- <div class="wrapper-four">
+            <div class="progress-section">
+                <textarea class="progress-box" id="progress" placeholder="Progress" readonly></textarea>
+            </div>
+        </div> -->
+
+        <!-- container -->
+    </div>
+    
+        <div class="footer">
+            <p options>Sarah Dillard 2021</p>
+        </div>
+    
+</body>
+</html>
