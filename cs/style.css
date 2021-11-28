@@ -109,7 +109,7 @@ textarea {
   border-radius: 3px;
 }
 
-textarea.area-input, textarea.area-output {
+textarea.area-input, textarea.area-input-fiddler, textarea.area-input-one, textarea.area-input-two, textarea.area-output {
   height: 360px;
   padding: 20px;
   margin: 0px;

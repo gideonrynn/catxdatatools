@@ -1,12 +1,26 @@
+/* To Do:
+*export getInputValue function as module so it can be shared
+*set up progress log field
+*/
+
 let progressUpdate = "";
- 
-function getInputValue() {
+// let validationRun = false;
+
+function getIdsInputValue() {
 
     // get original list submitted by user
-    let originalList = document.getElementById("input").value;
+    let originalList = document.querySelector("#input-fiddler").value;
+
+    //add to progress log as collapsed string with commas using regex
+    //replace double commas - which appear when there is an empty string between values - with null
+    console.log("Processing the following ids -------");
+    console.log(originalList.trim().replace(/\n/g, ",").replace(/,,/g,",null"));
 
     // trim white space and separate into array so we can evaluate each item appropriately
     let inputArray = originalList.trim().split("\n");
+
+    // add to progress log
+    console.log("Trimmed whitespace, applied newline");
 
     return inputArray;
 }
@@ -24,88 +38,141 @@ function noInput() {
 }
 
 function runValidation() {
-    console.log("data entered in input for ids")
+
+    //add to progress log
+    console.log("Starting validation on id input...");
     
-    numArray = getInputValue();
+    numArray = getIdsInputValue();
+
     let validationError = false;
-    let numberOfDigitsError = false;
-    let newInput = document.querySelector(".area-input");
+    let plusTenDigits = [];
+    let nonIds = [];
+    let blankLines = false;
+
+    //will need to decide if styling will be applied to textarea numbers, would need to use contenteditable
+    let newInput = document.querySelector("#input-fiddler");
 
     numArray.forEach(number => {
-
-        console.log(number);
-        thisNumber = parseInt(number, 10);
         
-        let numberOfDigits = thisNumber.toString().length;
-        console.log(numberOfDigits);
-        if (number !== "" && number !== null && numberOfDigits > 10) {
-       
-            newInput.classList.add("warning");
-            numberOfDigitsError = true;
+        let regCheck = /^-?[0-9]+$/;
 
-         } else {
-            newInput.classList.remove("warning");
+        if (number === null || number === "") {
+
+            blankLines = true;
+            return;
             
-         }
+        } 
 
-     })
+        //if string value contains values other than 0-9, it is not a number that should be processed as a CATracks ID
+        //and the user should be notified
+        if (!regCheck.test(number)) {
 
-     if(numberOfDigitsError == true) {
-        progressUpdate += "Input contains entries with more than 10 digits" + "\n";
-     } else {
-        progressUpdate += "Validation complete"+ "\n";
-     }
+            nonIds.push(number || "blank");
 
-     document.querySelector('#progress').textContent = progressUpdate;
+            //log to progress updates
+            console.log("This is not a number: " + number);
 
+        } else {
+        
+            let numberOfDigits = number.length;
+
+            if (number !== "" && number !== null && numberOfDigits > 10) {
+                plusTenDigits.push(number);
+                // will need to decide if styling will be applied to textarea numbers, would need to use contenteditable
+                // newInput.classList.add("warning");
+
+            } else {
+                //will need to decide if styling will be applied to textarea numbers, would need to use contenteditable
+                //if not, remove this else
+                //newInput.classList.remove("warning");  
+            }
+
+        }
+
+    })
+
+    if(plusTenDigits > 0) {
+        progressUpdate += "Input contains entries with more than 10 digits: " + "\n" + plusTenDigits + "\n";
+    }
+
+    if (nonIds.length > 0) {
+        progressUpdate += "Input contains non id values: " + "\n" + nonIds + "\n";
+    }
+
+    if (blankLines) {
+        progressUpdate += "Blank line(s) detected" + "\n";
+    }
+    
+    progressUpdate += "Validation complete on ids input"+ "\n";
+
+    //add to progress log
+    console.log(progressUpdate);
+
+    //  document.querySelector('#progress').textContent = progressUpdate;
+  
 }
 
 function addZeroes(id) {
 
     clearOutput();
 
-    numArray = getInputValue();
+    numArray = getIdsInputValue();
     // console.log("numarray: " + numArray);
 
     let tenDigitNums = "";
+    let existingIds = [];
 
     // calculate number of zeroes to be created if any
     numArray.forEach(number => {
 
         if (number !== "" && number !== null) {
             number = parseInt(number, 10);
-            // console.log("This is the number: " + number + " and this is the type: " + typeof number);
+
             let numberOfDigits = number.toString().length;
             let numberOfZeroes = 10 - numberOfDigits;
-
-            // if(numberOfDigits > 10) {
-            //     document.querySelector('#input-comment').innerHTML = "One of the items below has more than 10 digits";
-            //     document.querySelector('#input-comment').classList.add("overTen");
-            // }
 
             if(numberOfZeroes > 0 && number !== null && number !== "") {
                 for(let counter = 0; counter < numberOfZeroes; counter++) {
                     tenDigitNums += 0
                 };
                 // console.log(tenDigitNums);
+            } else if (numberOfZeroes <= 0 && number !== null && number !== "") {
+
+                existingIds.push(number);
+                //log to progress update
+                console.log(`${number} already 10 digit id`);
             }
 
             tenDigitNums = tenDigitNums + number + "\n"; 
+
+            
         } else {
+            //log to progress update
             console.log("Empty string, removing from output");
         }
         
     })
 
     if(id) {
+
+        //log to progress update
+        progressUpdate += existingIds.length + " already contains 10 digits" + "\n" + existingIds;
+        progressUpdate += tenDigitNums.length + " ids updated with zeroes" + "\n";
+
         return tenDigitNums;
+
     } else {
-        // console.log(typeof tenDigitNums);
-        progressUpdate += "Zeroes applied: " + tenDigitNums;
+        
+        //add to progress log
+        progressUpdate += existingIds.length + " already contain 10 digits" + "\n" + existingIds;
+        progressUpdate += "Zeroes applied: " + tenDigitNums.trim().replace(/\n/g, ", ").replace(/,,/g,",null,") + "\n";
         document.querySelector('#output').innerHTML = tenDigitNums;
-        document.querySelector('#progress').innerHTML = progressUpdate;
+
+        // document.querySelector('#progress').innerHTML = progressUpdate;
+        console.log(progressUpdate);
+
         document.querySelector("#clear-right").removeAttribute("disabled");
-        document.querySelector("#results-to-input").removeAttribute("disabled");
+        // document.querySelector("#results-to-input").removeAttribute("disabled");
         document.querySelector("#four-line-submit").removeAttribute("disabled");
         // console.log("done")
 
@@ -126,7 +193,7 @@ function addQuotes(zeroes) {
 
     } else {
 
-        originalList = document.querySelector('#input').value;
+        originalList = document.querySelector('#input-fiddler').value;
 
     }
         
@@ -154,7 +221,7 @@ function addQuotes(zeroes) {
     document.querySelector('#output').textContent = quotesList;
     // document.querySelector("#copy").removeAttribute("disabled");
     document.querySelector("#clear-right").removeAttribute("disabled");
-    document.querySelector("#results-to-input").removeAttribute("disabled");
+    // document.querySelector("#results-to-input").removeAttribute("disabled");
     document.querySelector("#four-line-submit").removeAttribute("disabled");
     console.log(document.querySelector('#output').innerHTML);
 }
@@ -190,7 +257,8 @@ function fourPerLine() {
     };
     
     document.querySelector('#output').textContent = newOutputList;
-    console.log(document.querySelector('#output').innerHTML);
+    //remove console log
+    // console.log(document.querySelector('#output').innerHTML);
 
 }
 
@@ -214,7 +282,7 @@ function clearOutputRight() {
     // document.querySelector('#output-comment').innerHTML = "";
     // document.querySelector('#output-comment').classList.remove("overTen");
     document.querySelector("#clear-right").setAttribute("disabled", true);
-    document.querySelector("#results-to-input").setAttribute("disabled", true);
+    // document.querySelector("#results-to-input").setAttribute("disabled", true);
 }
 
 function clearInputLeft() {

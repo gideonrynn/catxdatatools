@@ -1,8 +1,80 @@
 
+function getDateInputValue() {
+
+    // get original list submitted by user
+    let originalList = document.querySelector("#input-date").value;
+
+    //add to progress log as collapsed string with commas using regex
+    //replace double commas - which appear when there is an empty string between values - with null
+    console.log("Processing the following dates -------");
+    console.log(originalList.trim().replace(/\n/g, ",").replace(/,,/g,",null"));
+
+    // trim white space and separate into array so we can evaluate each item appropriately
+    let inputArray = originalList.trim().split("\n");
+
+    // add to progress log
+    console.log("Trimmed whitespace, applied newline");
+
+    return inputArray;
+}
+
+function runDateValidation() {
+    
+    dateArray = getDateInputValue();
+
+    if (dateArray.length > 0) {
+        console.log("Starting validation on date input...");
+
+        let inputFormat = [];
+        //d metacharacter [0-9]
+        let regFormatMDYYYY = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+        let regFormatYYYYMMDD = /^\d{4}\d{1,2}\d{1,2}$/;
+
+        //optional - allow to be any separators /^\d{2}[./-]\d{2}[./-]\d{4}$/
+
+        dateArray.forEach(date => {
+
+            if (regFormatMDYYYY.test(date)) {
+                console.log("Format M/D/YYYY", date);
+                inputFormat.push("MDYYYY");
+            } else if (regFormatYYYYMMDD.test(date)) {
+                console.log("Format YYYYMMDD", date);
+                inputFormat.push("YYYYMMDD");
+            } else {
+                console.log("Values in input do not match the formats on file");
+                progressUpdate += "Values in input do not match the formats on file" + "\n";
+            }
+
+        });
+
+        // get unique value using Set or filter/index of
+        let checkFormats = [...new Set(inputFormat)];
+        console.log(checkFormats);
+
+        if (checkFormats.length > 1) {
+            console.log("There are multiple date formats");
+            progressUpdate += "Input contains multiple date formats. Update input values." + 
+            "\n";
+        } else {
+            progressUpdate += "Format = " + checkFormats + "\n";
+        }
+
+        if (checkFormats[0] === "MDYYYY") {
+            document.querySelector("#formatMDY").removeAttribute("disabled");
+        } else if (checkFormats[0] === "YYYYMMDD") {
+            document.querySelector("#formatYMD").removeAttribute("disabled");
+        }
+
+        console.log(progressUpdate);
+
+    }
+    
+}
+
 function formatDates(format) {
     
     document.querySelector("#output").textContent = "";
-    let originalDatesList = document.querySelector("#input").value;
+    let originalDatesList = document.querySelector("#input-date").value;
     let newDatesList = "";
     // console.log("originalDatesList: " + "\n" + originalDatesList + " and the length is: " + originalDatesList.length);
 
@@ -74,10 +146,11 @@ function formatDates(format) {
 
     })
 
-    document.querySelector('#output').textContent = newDatesList;
+    console.log(newDatesList);
+
+    document.querySelector('#output-date').textContent = newDatesList;
     document.querySelector("#clear-right").removeAttribute("disabled");
     document.querySelector("#clear-all").removeAttribute("disabled");
-    console.log(document.querySelector('#output').innerHTML);
 
 }
 
@@ -87,11 +160,11 @@ function clearOutput(id) {
         document.querySelector('#input').value = "";
     }
     if(id === "clear-right") {
-        document.querySelector('#output').innerHTML = "";
+        document.querySelector('#output-date').innerHTML = "";
         document.querySelector("#clear-right").setAttribute("disabled", true);
     }
     if(id === "clear-all") {
-        document.querySelector('#input').value = "";
-        document.querySelector('#output').innerHTML = "";
+        document.querySelector('#input-date').value = "";
+        document.querySelector('#output-date').innerHTML = "";
     }
 }

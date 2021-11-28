@@ -33,8 +33,8 @@
             <!-- <h1>CATracks ID Fiddler</h1> -->
             <!-- <div class="wrapper-three"> -->
                 
-                <div class="input-section">            
-                        <textarea class="area-input" rows="20" cols="50" id="input" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+                <div class="input-section" ">            
+                        <textarea class="area-input-fiddler" rows="20" cols="50" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
                 </div>
                 <div class="button-options">
                     <!-- <div id="button-comment"> <p></p></div> -->
@@ -59,45 +59,52 @@
         <!-- Date Formatter -->
         <div class="wrapper-two" id="date-formatter" style="display:none">
             <!-- <h1>Date Formatter</h1> -->
-            <div class="input-section">            
+            <div class="input-section" oninput="runDateValidation()">            
                 <div class="text-input">
-                    <textarea class="area-input" class="two" rows="20" cols="50" id="input" placeholder="Input: M/D/YYYY"></textarea>
+                    <textarea class="area-input" class="two" rows="20" cols="50" id="input-date" placeholder="Input: M/D/YYYY"></textarea>
                 </div>
             </div>
             <div class="button-options">
                 <div id="button-comment"> <p></p></div>
-                <button type="button clear" id="clear-left" onclick="clearOutput(id)"><i class="arrow left"> </i>  Clear</button>
-                <button type="button clear" id="formatMDY" onclick="formatDates(id)"><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
-                <button type="button clear" id="formatYMD" onclick="formatDates(id)"><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
+                <button type="button clear" id="clear-left" onclick="clearOutput(id)" ><i class="arrow left"> </i>  Clear</button>
+                <button type="button clear" id="formatMDY" onclick="formatDates(id)" disabled><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
+                <button type="button clear" id="formatYMD" onclick="formatDates(id)" disabled><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
                 <button type="button clear" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
                 <button type="button clear" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
             </div>
             <div class="output-section">
-                <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Output: YYYYMMDD" readonly></textarea>
+                <textarea class="area-output" rows="20" cols="50" id="output-date" placeholder="Output: YYYYMMDD" readonly></textarea>
             </div>
         </div>
 
         <!-- Duplicate Check -->
+
         <div class="wrapper-three" id="duplicate-checker" style="display:none">
             <!-- <h1>Duplicate Checker</h1> -->
-            <div class="input-section-one" oninput="runDuplicateValidation()">            
+            
+            <div class="input-section-one" oninput="runDuplicateValidation()">
+                <!-- <select id = "myList" onchange = "run()" >  
+                    <option> ---Choose tutorial--- </option>  
+                    <option> Within List </option>  
+                    <option> Comparison </option>  
+                </select>               -->
                 <div class="text-input">
-                    <textarea class="area-input" class="three" rows="20" cols="50" id="input" placeholder="Compare 1"></textarea>
+                    <textarea class="area-input-one" class="three" rows="20" cols="30" id="input-dup-one" placeholder="Compare 1"></textarea>
                 </div>
             </div>
             <div class="button-options">
                 <p><i class="compare arrow right"></i><i class="arrow right compare"></i></p>
             </div>
-            <div class="input-section-two">            
+            <div class="input-section-two" oninput="runDuplicateValidation()">            
                 <div class="text-input">
-                    <textarea class="area-input" class="three" rows="20" cols="50" id="input" placeholder="Compare 2"></textarea>
+                    <textarea class="area-input-two" class="three" rows="20" cols="30" id="input-dup-two" placeholder="Compare 2"></textarea>
                 </div>
             </div>
             <div class="button-options">
                 <p class="compare-result">=</p>
             </div>
             <div class="output-section">
-                <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Result" readonly></textarea>
+                <textarea class="area-output" rows="20" cols="30" id="output-duplicate" placeholder="Result" readonly></textarea>
             </div>
         </div>
         <!-- <div class="wrapper-four">

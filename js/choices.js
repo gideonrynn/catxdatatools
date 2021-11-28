@@ -3,17 +3,20 @@ let selectOptions = [
      { 
         id:"1", 
         name:"id", 
-        tool:"id-fiddler"
+        tool:"id-fiddler",
+        toolName:"CATracks ID Fiddler"
     }, 
     {
         id:"2", 
         name:"date", 
-        tool:"date-formatter"
+        tool:"date-formatter",
+        toolName:"Date Formatter"
     }, 
     {
         id:"3",
         name:"duplicate",
-        tool:"duplicate-checker"
+        tool:"duplicate-checker",
+        toolName:"Duplicate Checker"
     }
 ];
 
