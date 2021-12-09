@@ -171,9 +171,9 @@ function addZeroes(id) {
         // document.querySelector('#progress').innerHTML = progressUpdate;
         console.log(progressUpdate);
 
-        document.querySelector("#clear-right").removeAttribute("disabled");
+        // document.querySelector("#clear-right").removeAttribute("disabled");
         // document.querySelector("#results-to-input").removeAttribute("disabled");
-        document.querySelector("#four-line-submit").removeAttribute("disabled");
+        // document.querySelector("#four-line-submit").removeAttribute("disabled");
         // console.log("done")
 
     }
@@ -220,9 +220,9 @@ function addQuotes(zeroes) {
 
     document.querySelector('#output').textContent = quotesList;
     // document.querySelector("#copy").removeAttribute("disabled");
-    document.querySelector("#clear-right").removeAttribute("disabled");
+    // document.querySelector("#clear-right").removeAttribute("disabled");
     // document.querySelector("#results-to-input").removeAttribute("disabled");
-    document.querySelector("#four-line-submit").removeAttribute("disabled");
+    // document.querySelector("#four-line-submit").removeAttribute("disabled");
     console.log(document.querySelector('#output').innerHTML);
 }
 
@@ -287,16 +287,24 @@ function clearOutputRight() {
 
 function clearInputLeft() {
     // console.log("clicked!")
-    document.querySelector('#input').value = "";
+    document.querySelector('#input-fiddler').value = "";
     // document.querySelector('#input-comment').innerHTML = "";
 }
 
-// function copyToClipboard() {
-//     let copyOutput = document.querySelector("#output");
-//     copyOutput.select();
-//     copyOutput.setSelectionRange(0, 99999);
-//     document.execCommand("copy");
-// }
+function copyToClipboard() {
+    let copyOutput = document.querySelector("#output").textContent;
+    // copyOutput.select();
+    // copyOutput.setSelectionRange(0, 99999);
+    // document.execCommand("copy");
+
+    navigator.clipboard.writeText(copyOutput)
+    .then(() => {
+    console.log("Text copied to clipboard...")
+})
+    .catch(err => {
+    console.log('Something went wrong', err);
+})
+}
 
 // function highlightActions() {
 //     console.log("highlighted");

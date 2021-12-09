@@ -61,8 +61,10 @@ function runDateValidation() {
 
         if (checkFormats[0] === "MDYYYY") {
             document.querySelector("#formatMDY").removeAttribute("disabled");
+            document.querySelector("#formatYMD").setAttribute("disabled", "");
         } else if (checkFormats[0] === "YYYYMMDD") {
             document.querySelector("#formatYMD").removeAttribute("disabled");
+            document.querySelector("#formatMDY").setAttribute("disabled", "");
         }
 
         console.log(progressUpdate);
@@ -157,7 +159,9 @@ function formatDates(format) {
 function clearOutput(id) {
 
     if(id === "clear-left") {
-        document.querySelector('#input').value = "";
+        document.querySelector('#input-date').value = "";
+        document.querySelector("#formatYMD").setAttribute("disabled", "");
+        document.querySelector("#formatMDY").setAttribute("disabled", "");
     }
     if(id === "clear-right") {
         document.querySelector('#output-date').innerHTML = "";
@@ -166,5 +170,7 @@ function clearOutput(id) {
     if(id === "clear-all") {
         document.querySelector('#input-date').value = "";
         document.querySelector('#output-date').innerHTML = "";
+        document.querySelector("#formatYMD").setAttribute("disabled", "");
+        document.querySelector("#formatMDY").setAttribute("disabled", "");
     }
 }

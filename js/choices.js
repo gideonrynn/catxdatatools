@@ -25,6 +25,7 @@ function init() {
 };
 
 function setSelection(selection) {
+    console.log('firing')
 
     if (!selection) {
         // by default, display the first tool in the array
@@ -32,8 +33,10 @@ function setSelection(selection) {
         document.querySelector("#"+selectOptions[0].name).classList.add("current");
     } else {
         selectOptions.forEach(option => {
+            
             // display selected option
             if (selection === option.name) {
+                console.log(option)
                 document.querySelector("#"+option.tool).style.display = "";
                 document.querySelector("#"+option.name).classList.add("current");
             } else {

@@ -4,121 +4,191 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CATxID Data Management Tools</title>
+    <title>CATx Data Management Tools</title>
     <script src="js/choices.js" defer></script>
     <script src="js/ids.js" defer></script>
     <script src="js/dates.js" defer></script>
     <script src="js/duplicates.js" defer></script>
+    <!-- Bootstrap CSS 1 of 2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="cs/style.css">
+    <link rel="" href="cs/style.css">
+    <!-- Font Awesome Images -->
+    
 
 </head>
 <body>
-    <div class="navigation">
-        <div class="navigation-items">
-            <a class="current options" id="id" onclick="setSelection(id)" href="#catxidfiddler">CATracks ID Fiddler</a>
-            <a class="options" id="date" onclick="setSelection(id)" href="#dateformatter">Date Formatter</a>
-            <a class="options" id="duplicate" onclick="setSelection(id)" href="#duplicatechecker">Duplicate Checker</a>
+    
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CATx Data Management Tools</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <!-- Tools Dropdown Configuration -->
+                    <!-- <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tools
+                    </a> -->
+                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item current options" id="id" onclick="setSelection(id)" href="#catxidfiddler">ID Fiddler</a></li>
+                        <li><a class="dropdown-item options" id="date" onclick="setSelection(id)" href="#dateformatter">Date Formatter</a></li>
+                        <li><a class="dropdown-item options" id="duplicate" onclick="setSelection(id)" href="#duplicatechecker">Duplicate Checker</a></li>
+                    </ul> --> -->
+                    <li class="nav-item">
+                        <a class="nav-link current options" id="id" onclick="setSelection(id)" href="#catxidfiddler">ID Fiddler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link options" id="date" onclick="setSelection(id)" href="#dateformatter">Date Formatter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link options" id="duplicate" onclick="setSelection(id)" href="#duplicatechecker">Duplicate Checker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link options" id="changelog" onclick="setSelection(id)" href="#changelog">Change Log</a>
+                    </li>
+                </ul>
+
+            </div>
         </div>
     </div>
-    <div class="container">
 
         <!-- <div class="wrapper-selections wrapper-one" id="selections">
             <button class="options" id="id" onclick="setSelection(id)">CATracks ID Fiddler</button>
             <button class="options" id="date" onclick="setSelection(id)">Date Formatter</button>
             <button class="options" id="duplicate" onclick="setSelection(id)">Duplicate Checker</button>
         </div> -->
+    
 
-        <!-- ID Fiddler -->
-        <div class="wrapper-one" id="id-fiddler" style="display:none">
-            <!-- <h1>CATracks ID Fiddler</h1> -->
-            <!-- <div class="wrapper-three"> -->
-                
-                <div class="input-section" ">            
-                        <textarea class="area-input-fiddler" rows="20" cols="50" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+        <!-- ID Fiddler -->  
+        <section id="id-fiddler" style="display:none">
+            <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
+
+            <div class="row vh-100" >
+                <div class="col my-auto" >
+                    <div class="input-button-options">
+                        <img class="fa" src="img/redo-solid.svg" alt="Clear" onclick="clearInputLeft()">
+                        <img class="fa" src="img/copy-regular.svg" alt="Regular">
+                    </div>
+                    <div class="input-section" >            
+                            <textarea class="area-input-fiddler" rows="20" cols="50" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+                    </div>
                 </div>
-                <div class="button-options">
-                    <!-- <div id="button-comment"> <p></p></div> -->
-                    <button type="button clear" id="clear-left" onclick="clearInputLeft()"><i class="arrow left"> </i>  Clear</button>
-                    <button type="button" id="zero-submit" onclick="addZeroes()">Add Zeroes  <i class="arrow right"></i></button>
-                    <button type="button" id="quotes-submit" onclick="addQuotes()">Apply Quotes  <i class="arrow right"></i></button>
-                    <button type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">Apply Zeroes and Quotes <i class="arrow right"></i></button>
-                    <!-- <button type="button results" id="results-to-input" onclick="copyResultToInput()" disabled><i class="arrow left" > </i>  Copy to Input</button> -->
-                    <button type="button" id="four-line-submit" onclick="fourPerLine()" disabled>Output to 4 Per Line<i class="arrow right"></i></button>
-                    <button type="button clear" id="clear-right" onclick="clearOutputRight()" disabled>Clear  <i class="arrow right"></i></button>
-                    
-                    <!-- <button type="button copy" id="copy" disabled>Copy to Clipboard</button> -->
-                    <!-- <button type="button" id="quotes-submit">Zeroes and Quotes<i class="arrow right"></i></button> -->
+                <div class="col my-auto">
+                    <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons">
+                        <!-- <div id="button-comment"> <p></p></div> -->
+                        <!-- <button class="btn btn-default-color my-2 rounded" type="button" id="clear-left" onclick="clearInputLeft()"><i class="arrow left"> </i>  Clear</button> -->
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="zero-submit" onclick="addZeroes()">Add Zeroes  <i class="arrow right"></i></button>
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="quotes-submit" onclick="addQuotes()">Apply Quotes  <i class="arrow right"></i></button>
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">Apply Zeroes and Quotes <i class="arrow right"></i></button>
+                        <!-- <button type="button results" id="results-to-input" onclick="copyResultToInput()" disabled><i class="arrow left" > </i>  Copy to Input</button> -->
+                        <!-- <button class="btn btn-default-color my-2 rounded" type="button" id="four-line-submit" onclick="fourPerLine()" disabled>Output to 4 Per Line<i class="arrow right"></i></button> -->
+                        <!-- <button class="btn btn-default-color my-2 rounded" type="button" id="clear-right" onclick="clearOutputRight()" disabled>Clear  <i class="arrow right"></i></button> -->
+                        
+                        <!-- <button type="button copy" id="copy" disabled>Copy to Clipboard</button> -->
+                        <!-- <button type="button" id="quotes-submit">Zeroes and Quotes<i class="arrow right"></i></button> -->
+                    </div>
                 </div>
-                <div class="output-section">
-                    <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
+                <div class="col my-auto">
+                    <div class="output-button-options">
+                            <img class="fa" src="img/vert-line.svg" alt="Clear" onclick="fourPerLine()" title="1 or 4 ids per row">
+                        <img class="fa .tooltip" src="img/redo-solid.svg" alt="Clear" onclick="clearOutputRight()" title="Clear">
+                        <img class="fa .tooltip" src="img/copy-regular.svg" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard">
+                    </div>
+                    <div class="output-section">
+                        <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
+                    </div>
                 </div>
-            <!-- </div> -->
-           
+            </div>
         </div>
+        </section>
 
         <!-- Date Formatter -->
-        <div class="wrapper-two" id="date-formatter" style="display:none">
-            <!-- <h1>Date Formatter</h1> -->
-            <div class="input-section" oninput="runDateValidation()">            
-                <div class="text-input">
-                    <textarea class="area-input" class="two" rows="20" cols="50" id="input-date" placeholder="Input: M/D/YYYY"></textarea>
+        <section id="date-formatter" style="display:none">
+            <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
+                <div class="row vh-100" >
+                    <div class="col my-auto">
+                        <div class="input-section" oninput="runDateValidation()">            
+                            <div class="text-input">
+                                <textarea class="area-input" class="two" rows="20" cols="50" id="input-date" placeholder="Input: M/D/YYYY"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col my-auto">
+                        <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons"">
+                            <div id="button-comment"> <p></p></div>
+                            <button class="btn btn-default-color my-2 rounded" type="button" id="clear-left" onclick="clearOutput(id)" ><i class="arrow left"> </i>  Clear</button>
+                            <button class="btn btn-default-color my-2 rounded" type="button" id="formatMDY" onclick="formatDates(id)" disabled><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
+                            <button class="btn btn-default-color my-2 rounded" type="button" id="formatYMD" onclick="formatDates(id)" disabled><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
+                            <button class="btn btn-default-color my-2 rounded" type="button" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
+                            <button class="btn btn-default-color my-2 rounded" type="button" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
+                        </div>
+                    </div>
+                    <div class="col my-auto">    
+                        <div class="output-section">
+                            <textarea class="area-output" rows="20" cols="50" id="output-date" placeholder="Output: YYYYMMDD" readonly></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="button-options">
-                <div id="button-comment"> <p></p></div>
-                <button type="button clear" id="clear-left" onclick="clearOutput(id)" ><i class="arrow left"> </i>  Clear</button>
-                <button type="button clear" id="formatMDY" onclick="formatDates(id)" disabled><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
-                <button type="button clear" id="formatYMD" onclick="formatDates(id)" disabled><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
-                <button type="button clear" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
-                <button type="button clear" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
-            </div>
-            <div class="output-section">
-                <textarea class="area-output" rows="20" cols="50" id="output-date" placeholder="Output: YYYYMMDD" readonly></textarea>
-            </div>
-        </div>
+        </section>
 
-        <!-- Duplicate Check -->
-
-        <div class="wrapper-three" id="duplicate-checker" style="display:none">
-            <!-- <h1>Duplicate Checker</h1> -->
-            
-            <div class="input-section-one" oninput="runDuplicateValidation()">
-                <!-- <select id = "myList" onchange = "run()" >  
-                    <option> ---Choose tutorial--- </option>  
-                    <option> Within List </option>  
-                    <option> Comparison </option>  
-                </select>               -->
-                <div class="text-input">
-                    <textarea class="area-input-one" class="three" rows="20" cols="30" id="input-dup-one" placeholder="Compare 1"></textarea>
+        <!-- Duplicate Checker -->
+        <section id="duplicate-checker" style="display:none">
+            <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
+                <div class="row vh-100">
+                    <div class="col my-auto">
+                        <div class="input-section-one" oninput="runDuplicateValidation()">            
+                            <div class="text-input">
+                                <textarea class="area-input-one" class="three" rows="20" cols="30" id="input-dup-one" placeholder="Compare 1"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col my-auto">
+                        <div class="button-options">
+                            <p><i class="compare arrow right"></i><i class="arrow right compare"></i></p>
+                        </div>
+                    </div>
+                    <div class="col my-auto">
+                        <div class="input-section-two" oninput="runDuplicateValidation()">            
+                            <div class="text-input">
+                                <textarea class="area-input-two" class="three" rows="20" cols="30" id="input-dup-two" placeholder="Compare 2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col my-auto">
+                        <div class="button-options">
+                            <p class="compare-result">=</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col my-auto"> 
+                        <div class="output-section">
+                            <textarea class="area-output" rows="20" cols="30" id="output-duplicate" placeholder="Result" readonly></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="button-options">
-                <p><i class="compare arrow right"></i><i class="arrow right compare"></i></p>
-            </div>
-            <div class="input-section-two" oninput="runDuplicateValidation()">            
-                <div class="text-input">
-                    <textarea class="area-input-two" class="three" rows="20" cols="30" id="input-dup-two" placeholder="Compare 2"></textarea>
-                </div>
-            </div>
-            <div class="button-options">
-                <p class="compare-result">=</p>
-            </div>
-            <div class="output-section">
-                <textarea class="area-output" rows="20" cols="30" id="output-duplicate" placeholder="Result" readonly></textarea>
-            </div>
-        </div>
-        <!-- <div class="wrapper-four">
+        </section>
+    
+        
+  
+                <!-- <div class="wrapper-four">
             <div class="progress-section">
                 <textarea class="progress-box" id="progress" placeholder="Progress" readonly></textarea>
             </div>
         </div> -->
-
-        <!-- container -->
-    </div>
+        
     
-        <div class="footer">
-            <p options>Sarah Dillard 2021</p>
+        <div class="footer p-5 bg-dark text-white text-center position-relative">
+            <div class="container">
+                <p options>Placeholder: Sarah Dillard 2021</p>
+            </div>
+            
         </div>
-    
+     
+        <!-- Bootstrap Bundle 2 of 2 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
