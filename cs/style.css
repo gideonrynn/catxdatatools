@@ -38,6 +38,14 @@ a.options {
   font-size: 17px; */
 }
 
+div.navbar {
+  padding: 0px;
+}
+
+.nav-link {
+  padding: 20px;
+}
+
 /* Change the color of links on hover */
 .navigation a:hover {
   /* background-color: #ddd;
@@ -49,40 +57,6 @@ a.current {
   background-color: #808080;
   color: white;
 }
-
-.wrapper-one,
-.wrapper-two,
-.wrapper-three,
-.wrapper-four {
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center; */
-  /* min-height: 100vh; */
-}
-
-/* .wrapper-four {
-  min-width: 400px;
-} */
-
-.input-section {
-  /* grid-area: input; */
-  /* padding: 0px; */
-  /* margin: 0px; */
-  /* flex: 1 0 auto; */
-}
-
-.output-section {
-  /* grid-area: output; */
-  /* padding: 0px; */
-  /* margin: 0px; */
-  /* flex: 1 0 auto; */
-}
-
-/* .progress-section {
-  padding: 0px;
-  margin: 0px;
-} */
 
 /* Text Area Styling */
 textarea {
@@ -160,13 +134,6 @@ button:hover {
   background-color: #f5f5f5;
 }
 
-.button-options {
-  /* text-align: center; */
-  /* padding: 40px; */
-  /* display: flex; */
-  /* flex-direction: column; */
-}
-
 .arrow {
   border: solid black;
   border-width: 0 2px 2px 0;
@@ -186,20 +153,6 @@ button:hover {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
-
-/* .copy { */
-/* set script so that value in the result box causes copy to clipboard to not be disabled */
-
-/* } */
-/* 
-#input-comment, #output-comment, #button-comment {
-  border-radius: 3px;
-  padding: 3px;
-} */
-
-/* .overTen {
-  color: white;
-} */
 
 .warning {
   background-color: #fffbc8;
@@ -230,18 +183,6 @@ button:hover {
 }
 
 .footer {
-  /* color: #f2f2f2; */
-  /* padding: 30px 16px; */
-  /* padding-top: 30px;
-  padding-bottom: 30px;
-  font-size: 17px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin-bottom: 0px; */
-}
-
-.footer {
   background-color: #333;
   /* overflow: hidden; */
   text-align: center;
@@ -261,6 +202,8 @@ img.fa {
   cursor: pointer;
 
 }
+
+/* Button option styling */
 
 .input-button-options, .output-button-options {
   text-align: right;
