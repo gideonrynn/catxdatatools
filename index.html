@@ -22,7 +22,7 @@
 </head>
 <body>
     
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">CATx Data Management Tools</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,114 +57,140 @@
         </div>
     </div>
 
-        <!-- ID Fiddler -->  
-        <section id="id-fiddler" style="display:none">
-            <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center">
-                <div class="row vh-100">
-                    <div class="col my-auto">
-                        <div class="input-button-options">
-                            <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
-                            <i class="far fa-copy fac-tool" alt="Regular"></i>
+    <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center">
+        <div class="row">
+            <div class="col">
+                <div class="instructions">
+                    <h1>Instructions</h1>
+                    <p id="instructions-description">
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+    
+            
+                <!-- ID Fiddler -->  
+                <div class="row" id="id-fiddler" style="display:none" >
+                        
+                    <!-- <section class="" > -->
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-button-options">
+                                        <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
+                                        <i class="far fa-copy fac-tool" alt="Regular"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-section" >            
+                                            <textarea class="area-input-fiddler" rows="20" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+                                    </div>
+                                </div>
+                            </div>        
                         </div>
-                        <div class="input-section" >            
-                                <textarea class="area-input-fiddler" rows="20" cols="50" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+                        <div class="col my-auto">
+                            <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons">
+                                <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="zero-submit" onclick="addZeroes()"> 
+                                    Add 0's<i class="fas fa-chevron-right fac-btn"></i>
+                                </button>
+                                <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-submit" onclick="addQuotes()">
+                                    <span>Add '',</span> <i class="fa fa-chevron-right fac-btn"></i>
+                                </button>
+                                <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">
+                                    Add '000',<i class="fa fa-chevron-right fac-btn"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col my-auto">
+                            <div class="output-button-options">
+                                <i class="fa fa-redo fac-tool" alt="Clear" onclick="clearOutputRight()" title="Clear"></i>
+                                <i class="fas fa-minus fac-tool" alt="Clear" onclick="fourPerLine()" title="1 id per row"></i>
+                                <i class="fas fa-align-justify fac-tool" alt="Clear" onclick="fourPerLine()" title="4 ids per row"></i>
+                                <i class="far fa-copy fac-tool" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard"></i>
+                            </div>
+                            <div class="output-section">
+                                <textarea class="area-output" rows="20" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="col my-auto">
-                        <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons">
-                            <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="zero-submit" onclick="addZeroes()"> 
-                                Add 0's<i class="fas fa-chevron-right fac-btn"></i>
-                            </button>
-                            <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-submit" onclick="addQuotes()">
-                                <span>Add '',</span> <i class="fa fa-chevron-right fac-btn"></i>
-                            </button>
-                            <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">
-                                Add '000',<i class="fa fa-chevron-right fac-btn"></i>
-                            </button>
+                
+                </div>
+            <!-- </section> -->
+            
+    
+            <!-- Date Formatter -->
+            <section id="date-formatter" style="display:none">
+                <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
+                    <div class="row">
+                        <div class="col my-auto">
+                            <div class="input-section" oninput="runDateValidation()">            
+                                <div class="text-input">
+                                    <textarea class="area-input" class="two" rows="20" cols="50" id="input-date" placeholder="Input: M/D/YYYY"></textarea>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col my-auto">
-                        <div class="output-button-options">
-                            <i class="fa fa-redo fac-tool" alt="Clear" onclick="clearOutputRight()" title="Clear"></i>
-                            <i class="fas fa-minus fac-tool" alt="Clear" onclick="fourPerLine()" title="1 id per row"></i>
-                            <i class="fas fa-align-justify fac-tool" alt="Clear" onclick="fourPerLine()" title="4 ids per row"></i>
-                            <i class="far fa-copy fac-tool" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard"></i>
+                        <div class="col my-auto">
+                            <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons"">
+                                <div id="button-comment"> <p></p></div>
+                                <button class="btn btn-default-color my-2 rounded" type="button" id="clear-left" onclick="clearOutput(id)" ><i class="arrow left"> </i>  Clear</button>
+                                <button class="btn btn-default-color my-2 rounded" type="button" id="formatMDY" onclick="formatDates(id)" disabled><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
+                                <button class="btn btn-default-color my-2 rounded" type="button" id="formatYMD" onclick="formatDates(id)" disabled><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
+                                <button class="btn btn-default-color my-2 rounded" type="button" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
+                                <button class="btn btn-default-color my-2 rounded" type="button" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
+                            </div>
                         </div>
-                        <div class="output-section">
-                            <textarea class="area-output" rows="20" cols="50" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
+                        <div class="col my-auto">    
+                            <div class="output-section">
+                                <textarea class="area-output" rows="20" cols="50" id="output-date" placeholder="Output: YYYYMMDD" readonly></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+    
+            <!-- Duplicate Checker -->
+            <section id="duplicate-checker" style="display:none">
+                <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
+                    <div class="row">
+                        <div class="col my-auto">
+                            <div class="input-section-one" oninput="runDuplicateValidation()">            
+                                <div class="text-input">
+                                    <textarea class="area-input-one" class="three" rows="20" cols="30" id="input-dup-one" placeholder="Compare 1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-auto">
+                            <div class="button-options">
+                                <p><i class="compare arrow right"></i><i class="arrow right compare"></i></p>
+                            </div>
+                        </div>
+                        <div class="col my-auto">
+                            <div class="input-section-two" oninput="runDuplicateValidation()">            
+                                <div class="text-input">
+                                    <textarea class="area-input-two" class="three" rows="20" cols="30" id="input-dup-two" placeholder="Compare 2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col my-auto">
+                            <div class="button-options">
+                                <p class="compare-result">=</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col my-auto"> 
+                            <div class="output-section">
+                                <textarea class="area-output" rows="20" cols="30" id="output-duplicate" placeholder="Result" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Date Formatter -->
-        <section id="date-formatter" style="display:none">
-            <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
-                <div class="row vh-100" >
-                    <div class="col my-auto">
-                        <div class="input-section" oninput="runDateValidation()">            
-                            <div class="text-input">
-                                <textarea class="area-input" class="two" rows="20" cols="50" id="input-date" placeholder="Input: M/D/YYYY"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-auto">
-                        <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons"">
-                            <div id="button-comment"> <p></p></div>
-                            <button class="btn btn-default-color my-2 rounded" type="button" id="clear-left" onclick="clearOutput(id)" ><i class="arrow left"> </i>  Clear</button>
-                            <button class="btn btn-default-color my-2 rounded" type="button" id="formatMDY" onclick="formatDates(id)" disabled><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
-                            <button class="btn btn-default-color my-2 rounded" type="button" id="formatYMD" onclick="formatDates(id)" disabled><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
-                            <button class="btn btn-default-color my-2 rounded" type="button" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
-                            <button class="btn btn-default-color my-2 rounded" type="button" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
-                        </div>
-                    </div>
-                    <div class="col my-auto">    
-                        <div class="output-section">
-                            <textarea class="area-output" rows="20" cols="50" id="output-date" placeholder="Output: YYYYMMDD" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Duplicate Checker -->
-        <section id="duplicate-checker" style="display:none">
-            <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
-                <div class="row vh-100">
-                    <div class="col my-auto">
-                        <div class="input-section-one" oninput="runDuplicateValidation()">            
-                            <div class="text-input">
-                                <textarea class="area-input-one" class="three" rows="20" cols="30" id="input-dup-one" placeholder="Compare 1"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-auto">
-                        <div class="button-options">
-                            <p><i class="compare arrow right"></i><i class="arrow right compare"></i></p>
-                        </div>
-                    </div>
-                    <div class="col my-auto">
-                        <div class="input-section-two" oninput="runDuplicateValidation()">            
-                            <div class="text-input">
-                                <textarea class="area-input-two" class="three" rows="20" cols="30" id="input-dup-two" placeholder="Compare 2"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col my-auto">
-                        <div class="button-options">
-                            <p class="compare-result">=</p>
-                        </div>
-                    </div>
-                    
-                    <div class="col my-auto"> 
-                        <div class="output-section">
-                            <textarea class="area-output" rows="20" cols="30" id="output-duplicate" placeholder="Result" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    </div>
+    
     
         
   
@@ -175,12 +201,12 @@
         </div> -->
         
     
-        <div class="footer p-5 bg-dark text-white text-center position-relative">
+        <!-- <div class="footer p-5 bg-dark text-white text-center position-relative">
             <div class="container">
                 <p options>Placeholder: Sarah Dillard 2021</p>
             </div>
             
-        </div>
+        </div> -->
      
         <!-- Bootstrap Bundle 2 of 2 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

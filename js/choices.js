@@ -4,19 +4,22 @@ let selectOptions = [
         id:"1", 
         name:"id", 
         tool:"id-fiddler",
-        toolName:"CATracks ID Fiddler"
+        toolName:"CATracks ID Fiddler",
+        instructions:`Input CATracks ID as a single column on the left. Choose buttons with  <i class="fa fa-chevron-right fac-btn"></i> to generate desired results. Select icons in toolbar to apply actions to box content.`
     }, 
     {
         id:"2", 
         name:"date", 
         tool:"date-formatter",
-        toolName:"Date Formatter"
+        toolName:"Date Formatter",
+        instructions:"Button options will be selected based on entries. If the format entered does not match [enter format] or [enter format], no date option will be displayed"
     }, 
     {
         id:"3",
         name:"duplicate",
         tool:"duplicate-checker",
-        toolName:"Duplicate Checker"
+        toolName:"Duplicate Checker",
+        instructions:"Blah blah blah"
     }
 ];
 
@@ -31,6 +34,7 @@ function setSelection(selection) {
         // by default, display the first tool in the array
         document.querySelector("#"+selectOptions[0].tool).style.display = "";
         document.querySelector("#"+selectOptions[0].name).classList.add("current");
+        document.querySelector("#instructions-description").innerHTML = selectOptions[0].instructions;
     } else {
         selectOptions.forEach(option => {
             
@@ -39,6 +43,7 @@ function setSelection(selection) {
                 console.log(option)
                 document.querySelector("#"+option.tool).style.display = "";
                 document.querySelector("#"+option.name).classList.add("current");
+                document.querySelector("#instructions-description").innerHTML = option.instructions;
             } else {
                 // remove visibility and selections from all other tools
                 document.querySelector("#" + option.tool).style.display = "none"
