@@ -30,15 +30,6 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <!-- Tools Dropdown Configuration -->
-                    <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Tools
-                    </a> -->
-                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item current options" id="id" onclick="setSelection(id)" href="#catxidfiddler">ID Fiddler</a></li>
-                        <li><a class="dropdown-item options" id="date" onclick="setSelection(id)" href="#dateformatter">Date Formatter</a></li>
-                        <li><a class="dropdown-item options" id="duplicate" onclick="setSelection(id)" href="#duplicatechecker">Duplicate Checker</a></li>
-                    </ul> --> -->
                     <li class="nav-item">
                         <a class="nav-link current options" id="id" onclick="setSelection(id)" href="#catxidfiddler">ID Fiddler</a>
                     </li>
@@ -57,8 +48,10 @@
         </div>
     </div>
 
-    <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center">
-        <div class="row">
+    <div class="container-fluid d-flex flex-column min-vh-70 justify-content-center p-5">
+
+        <!-- How To Instructions Box -->
+        <div class="row p-5">
             <div class="col">
                 <div class="instructions">
                     <h1>Instructions</h1>
@@ -67,58 +60,43 @@
                 </div>
             </div>
         </div>
-        
-    
             
-                <!-- ID Fiddler -->  
-                <div class="row" id="id-fiddler" style="display:none" >
-                        
-                    <!-- <section class="" > -->
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-button-options">
-                                        <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
-                                        <i class="far fa-copy fac-tool" alt="Regular"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-section" >            
-                                            <textarea class="area-input-fiddler" rows="20" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
-                                    </div>
-                                </div>
-                            </div>        
-                        </div>
-                        <div class="col my-auto">
-                            <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons">
-                                <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="zero-submit" onclick="addZeroes()"> 
-                                    Add 0's<i class="fas fa-chevron-right fac-btn"></i>
-                                </button>
-                                <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-submit" onclick="addQuotes()">
-                                    <span>Add '',</span> <i class="fa fa-chevron-right fac-btn"></i>
-                                </button>
-                                <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">
-                                    Add '000',<i class="fa fa-chevron-right fac-btn"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col my-auto">
-                            <div class="output-button-options">
-                                <i class="fa fa-redo fac-tool" alt="Clear" onclick="clearOutputRight()" title="Clear"></i>
-                                <i class="fas fa-minus fac-tool" alt="Clear" onclick="fourPerLine()" title="1 id per row"></i>
-                                <i class="fas fa-align-justify fac-tool" alt="Clear" onclick="fourPerLine()" title="4 ids per row"></i>
-                                <i class="far fa-copy fac-tool" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard"></i>
-                            </div>
-                            <div class="output-section">
-                                <textarea class="area-output" rows="20" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
-                            </div>
-                        </div>
-                    </div>
-                
+        <!-- ID Fiddler -->  
+        <div class="row px-5 py-2" id="id-fiddler" style="display:none" >
+            <div class="col">
+                <div class="input-button-options">
+                    <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
+                    <i class="far fa-copy fac-tool" alt="Regular"></i>
                 </div>
-            <!-- </section> -->
+                <div class="input-section" >            
+                        <textarea class="area-input-fiddler" rows="20" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+                </div>      
+            </div>
+            <div class="col-md-auto my-auto text-center">
+                <div class="button-options btn-group flex-column" role="group" aria-label="Processing buttons">
+                    <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="zero-submit" onclick="addZeroes()"> 
+                        Add 000<i class="fas fa-chevron-right fac-btn"></i>
+                    </button>
+                    <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-submit" onclick="addQuotes()">
+                        <span>Add ' ',</span> <i class="fa fa-chevron-right fac-btn"></i>
+                    </button>
+                    <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">
+                        Add '000', <i class="fa fa-chevron-right fac-btn"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col my-auto">
+                <div class="output-button-options">
+                    <i class="fa fa-redo fac-tool" alt="Clear" onclick="clearOutputRight()" title="Clear"></i>
+                    <i class="fas fa-minus fac-tool" alt="Clear" onclick="fourPerLine()" title="1 id per row"></i>
+                    <i class="fas fa-align-justify fac-tool" alt="Clear" onclick="fourPerLine()" title="4 ids per row"></i>
+                    <i class="far fa-copy fac-tool" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard"></i>
+                </div>
+                <div class="output-section">
+                    <textarea class="area-output" rows="20" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
+                </div>
+            </div>
+        </div>
             
     
             <!-- Date Formatter -->

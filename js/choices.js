@@ -5,7 +5,7 @@ let selectOptions = [
         name:"id", 
         tool:"id-fiddler",
         toolName:"CATracks ID Fiddler",
-        instructions:`Input CATracks ID as a single column on the left. Choose buttons with  <i class="fa fa-chevron-right fac-btn"></i> to generate desired results. Select icons in toolbar to apply actions to box content.`
+        instructions:`Enter list of CATracksIDs as a single column on the left. Choose buttons with   <i class="fa fa-chevron-right fac-btn"></i> to generate desired results. Select icons in toolbar to apply actions to box content. Results are in TEXT format.`
     }, 
     {
         id:"2", 
