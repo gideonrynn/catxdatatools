@@ -1,6 +1,7 @@
 /* To Do:
 *export getInputValue function as module so it can be shared
 *set up progress log field
+*fix 4 lines to 1 line if it still has issues switching
 */
 
 // let validationRun = false;
@@ -85,7 +86,7 @@ function runValidation() {
     })
 
     if(plusTenDigits > 0) {
-        gbUpdateProgress("Input contains entries with more than 10 digits: " + "\n" + plusTenDigits + "\n");
+        gbUpdateProgress("Input contains entries with more than 10 digits: " + "\n" + plusTenDigits || "\n");
     }
 
     if (nonIds.length > 0) {
@@ -96,7 +97,7 @@ function runValidation() {
         gbUpdateProgress("Blank line(s) detected" + "\n");
     }
     
-    gbUpdateProgress("Validation complete on ids input"+ "\n");
+    gbUpdateProgress("Validation complete on ids input");
 }
 
 function addZeroes(id) {
@@ -141,8 +142,8 @@ function addZeroes(id) {
     if(id) {
 
         //log to progress update
-        gbUpdateProgress(existingIds.length + " already contains 10 digits" + "\n" + existingIds);
-        gbUpdateProgress(tenDigitNums.length + " ids updated with zeroes" + "\n");
+        gbUpdateProgress(existingIds.length + " value already contains 10 digits" + "\n" + existingIds);
+        gbUpdateProgress(tenDigitNums.length + " ids updated with zeroes");
 
         return tenDigitNums;
 
@@ -215,6 +216,27 @@ function addZeroesAndQuotes(id) {
 
     let withZeroes = addZeroes(id);
     addQuotes(withZeroes);
+
+}
+
+function onePerLine() {
+    let outputList = document.querySelector('#output').value;
+
+    let newOutputList = '';  
+    let numArray = outputList.trim().replace(/["]/g, "").split("  ");
+    console.log(numArray);
+
+    numArray.forEach((number, index) => {
+
+        console.log(number);
+        newOutputList += number + "\n";
+
+    })
+       
+    console.log(newOutputList);
+    document.querySelector('#output').textContent = newOutputList;
+    //remove console log
+    // console.log(document.querySelector('#output').innerHTML);
 
 }
 

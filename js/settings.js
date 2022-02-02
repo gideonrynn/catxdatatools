@@ -60,6 +60,7 @@ function setSelection(selection) {
     
 };
 
+
 // function manualToggler() {
 
 //     // let dataBar = document.querySelector("[data-bar='bar']");
@@ -68,16 +69,14 @@ function setSelection(selection) {
 //     dataBar.classList.remove('show');
 
 // }
-let progressUpdate = "";
-let todaysDate = new Date().toLocaleTimeString();
+let progressUpdate = [];
 
 function gbUpdateProgress(update) {
-    
+    let todaysDate = new Date().toLocaleTimeString();
     let progressText = document.querySelector("#progress-text");
-
-    progressUpdate += todaysDate + "\t" + "\t" + update + "\n";
-    progressText.textContent = progressUpdate;
-    progressText.scrollHeight;
+    progressUpdate.unshift(todaysDate + "\t" + "\t" + update + "\n");
+    progressText.textContent = progressUpdate.join('');
+    // progressText.scrollHeight;
 };
 
 function clearOutput(id) {
