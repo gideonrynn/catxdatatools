@@ -3,46 +3,41 @@
 *set up progress log field
 */
 
-let progressUpdate = "";
 // let validationRun = false;
 
-function getIdsInputValue() {
+function idGetInputValue() {
 
     // get original list submitted by user
     let originalList = document.querySelector("#input-fiddler").value;
 
     //add to progress log as collapsed string with commas using regex
     //replace double commas - which appear when there is an empty string between values - with null
-    console.log("Processing the following ids -------");
-    console.log(originalList.trim().replace(/\n/g, ",").replace(/,,/g,",null"));
 
+    gbUpdateProgress("Processing the following ids -----");
+    gbUpdateProgress(originalList.trim().replace(/\n/g, ", ").replace(/,,/g,",null"));
+    
     // trim white space and separate into array so we can evaluate each item appropriately
     let inputArray = originalList.trim().split("\n");
+    gbUpdateProgress("Trimmed whitespace, applied newline");
 
-    // add to progress log
-    console.log("Trimmed whitespace, applied newline");
+    let idsTotal = inputArray.length;
+    gbUpdateProgress("Total of " + idsTotal + " ids in input");
 
     return inputArray;
 }
 
-function clearOutput() {
-    // clear output between conversions
-    document.querySelector('#output').textContent = "";
-}
-
-function noInput() {
-    let originalList = document.querySelector('#input').value;
-    if(!originalList) {
-        document.querySelector('#output').textContent = "No info";
-    }
-}
+// function noInput() {
+//     let originalList = document.querySelector('#input').value;
+//     if(!originalList) {
+//         document.querySelector('#output').textContent = "No info";
+//     }
+// }
 
 function runValidation() {
 
-    //add to progress log
-    console.log("Starting validation on id input...");
+    gbUpdateProgress("Starting validation on ids input...");
     
-    numArray = getIdsInputValue();
+    numArray = idGetInputValue();
 
     let validationError = false;
     let plusTenDigits = [];
@@ -68,9 +63,7 @@ function runValidation() {
         if (!regCheck.test(number)) {
 
             nonIds.push(number || "blank");
-
-            //log to progress updates
-            console.log("This is not a number: " + number);
+            gbUpdateProgress("This is not a number: " + number);
 
         } else {
         
@@ -92,31 +85,25 @@ function runValidation() {
     })
 
     if(plusTenDigits > 0) {
-        progressUpdate += "Input contains entries with more than 10 digits: " + "\n" + plusTenDigits + "\n";
+        gbUpdateProgress("Input contains entries with more than 10 digits: " + "\n" + plusTenDigits + "\n");
     }
 
     if (nonIds.length > 0) {
-        progressUpdate += "Input contains non id values: " + "\n" + nonIds + "\n";
+        gbUpdateProgress("Input contains non id values: " + "\n" + nonIds + "\n");
     }
 
     if (blankLines) {
-        progressUpdate += "Blank line(s) detected" + "\n";
+        gbUpdateProgress("Blank line(s) detected" + "\n");
     }
     
-    progressUpdate += "Validation complete on ids input"+ "\n";
-
-    //add to progress log
-    console.log(progressUpdate);
-
-    //  document.querySelector('#progress').textContent = progressUpdate;
-  
+    gbUpdateProgress("Validation complete on ids input"+ "\n");
 }
 
 function addZeroes(id) {
 
     clearOutput();
 
-    numArray = getIdsInputValue();
+    numArray = idGetInputValue();
     // console.log("numarray: " + numArray);
 
     let tenDigitNums = "";
@@ -138,17 +125,15 @@ function addZeroes(id) {
                 // console.log(tenDigitNums);
             } else if (numberOfZeroes <= 0 && number !== null && number !== "") {
 
-                existingIds.push(number);
-                //log to progress update
-                console.log(`${number} already 10 digit id`);
+                existingIds.push(number);            
+                gbUpdateProgress(`${number} already 10 digit id`);
             }
 
             tenDigitNums = tenDigitNums + number + "\n"; 
 
-            
         } else {
-            //log to progress update
-            console.log("Empty string, removing from output");
+ 
+            gbUpdateProgress("Empty string, removing from output");
         }
         
     })
@@ -156,20 +141,20 @@ function addZeroes(id) {
     if(id) {
 
         //log to progress update
-        progressUpdate += existingIds.length + " already contains 10 digits" + "\n" + existingIds;
-        progressUpdate += tenDigitNums.length + " ids updated with zeroes" + "\n";
+        gbUpdateProgress(existingIds.length + " already contains 10 digits" + "\n" + existingIds);
+        gbUpdateProgress(tenDigitNums.length + " ids updated with zeroes" + "\n");
 
         return tenDigitNums;
 
     } else {
         
         //add to progress log
-        progressUpdate += existingIds.length + " already contain 10 digits" + "\n" + existingIds;
-        progressUpdate += "Zeroes applied: " + tenDigitNums.trim().replace(/\n/g, ", ").replace(/,,/g,",null,") + "\n";
+        gbUpdateProgress(existingIds.length + " already contain 10 digits" + "\n" + existingIds);
+        gbUpdateProgress("Zeroes applied: " + tenDigitNums.trim().replace(/\n/g, ", ").replace(/,,/g,",null,") + "\n");
         document.querySelector('#output').innerHTML = tenDigitNums;
 
         // document.querySelector('#progress').innerHTML = progressUpdate;
-        console.log(progressUpdate);
+        // console.log(progressUpdate);
 
         // document.querySelector("#clear-right").removeAttribute("disabled");
         // document.querySelector("#results-to-input").removeAttribute("disabled");
@@ -177,7 +162,6 @@ function addZeroes(id) {
         // console.log("done")
 
     }
-
    
 }
 
@@ -223,7 +207,7 @@ function addQuotes(zeroes) {
     // document.querySelector("#clear-right").removeAttribute("disabled");
     // document.querySelector("#results-to-input").removeAttribute("disabled");
     // document.querySelector("#four-line-submit").removeAttribute("disabled");
-    console.log(document.querySelector('#output').innerHTML);
+    // console.log(document.querySelector('#output').innerHTML);
 }
 
 
@@ -261,57 +245,3 @@ function fourPerLine() {
     // console.log(document.querySelector('#output').innerHTML);
 
 }
-
-function copyResultToInput() {
-    document.querySelector('#input').value = "";
-    let outputList = document.querySelector('#output').value;
-    document.querySelector('#input').value = outputList;
-    // document.querySelector('#input').innerHTML = outputList;
-    // console.log("done")
-
-}
-
-// function clearOutput() {
-//     document.querySelector('#output').innerHTML = "";
-    // console.log(document.querySelector('#output').innerHTML);
-    // console.log(document.querySelector('#output').textContent);
-// }
-
-function clearOutputRight() {
-    document.querySelector('#output').innerHTML = "";
-    // document.querySelector('#output-comment').innerHTML = "";
-    // document.querySelector('#output-comment').classList.remove("overTen");
-    document.querySelector("#clear-right").setAttribute("disabled", true);
-    // document.querySelector("#results-to-input").setAttribute("disabled", true);
-}
-
-function clearInputLeft() {
-    // console.log("clicked!")
-    document.querySelector('#input-fiddler').value = "";
-    // document.querySelector('#input-comment').innerHTML = "";
-}
-
-function copyToClipboard() {
-    let copyOutput = document.querySelector("#output").textContent;
-    // copyOutput.select();
-    // copyOutput.setSelectionRange(0, 99999);
-    // document.execCommand("copy");
-
-    navigator.clipboard.writeText(copyOutput)
-    .then(() => {
-    console.log("Text copied to clipboard...")
-})
-    .catch(err => {
-    console.log('Something went wrong', err);
-})
-}
-
-// function highlightActions() {
-//     console.log("highlighted");
-// }
-
-// function addCSSClass() {
-// }
-// function applyZeroesandQuotes {
-
-// }

@@ -1,5 +1,14 @@
+/*Description: all date formatter functions, prefixed with "dt"
+*/
 
-function getDateInputValue() {
+/* To Do:
+*complete date validation that confirms if the accepted formats match
+*answer question of whether or not you will allow conversion to proceed without it
+*set up progress log field
+*/
+
+
+function dtGetDateInputValue() {
 
     // get original list submitted by user
     let originalList = document.querySelector("#input-date").value;
@@ -18,9 +27,9 @@ function getDateInputValue() {
     return inputArray;
 }
 
-function runDateValidation() {
+function dtRunDateValidation() {
     
-    dateArray = getDateInputValue();
+    dateArray = dtGetDateInputValue();
 
     if (dateArray.length > 0) {
         console.log("Starting validation on date input...");
@@ -73,7 +82,7 @@ function runDateValidation() {
     
 }
 
-function formatDates(format) {
+function dtFormatDates(format) {
     
     document.querySelector("#output").textContent = "";
     let originalDatesList = document.querySelector("#input-date").value;
@@ -154,23 +163,4 @@ function formatDates(format) {
     document.querySelector("#clear-right").removeAttribute("disabled");
     document.querySelector("#clear-all").removeAttribute("disabled");
 
-}
-
-function clearOutput(id) {
-
-    if(id === "clear-left") {
-        document.querySelector('#input-date').value = "";
-        document.querySelector("#formatYMD").setAttribute("disabled", "");
-        document.querySelector("#formatMDY").setAttribute("disabled", "");
-    }
-    if(id === "clear-right") {
-        document.querySelector('#output-date').innerHTML = "";
-        document.querySelector("#clear-right").setAttribute("disabled", true);
-    }
-    if(id === "clear-all") {
-        document.querySelector('#input-date').value = "";
-        document.querySelector('#output-date').innerHTML = "";
-        document.querySelector("#formatYMD").setAttribute("disabled", "");
-        document.querySelector("#formatMDY").setAttribute("disabled", "");
-    }
 }

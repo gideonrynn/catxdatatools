@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CATx Data Management Tools</title>
-    <script src="js/choices.js" defer></script>
+    <script src="js/settings.js" defer></script>
     <script src="js/ids.js" defer></script>
     <script src="js/dates.js" defer></script>
     <script src="js/duplicates.js" defer></script>
@@ -25,10 +25,10 @@
     <div class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">CATx Data Management Tools</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onblur="manualToggler()">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" data-bar="bar">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link current options" id="id" onclick="setSelection(id)" href="#catxidfiddler">ID Fiddler</a>
@@ -54,7 +54,7 @@
         <div class="row p-5">
             <div class="col">
                 <div class="instructions">
-                    <h1>Instructions</h1>
+                    <h1>Description</h1>
                     <p id="instructions-description">
                     </p>
                 </div>
@@ -62,72 +62,87 @@
         </div>
             
         <!-- ID Fiddler -->  
-        <div class="row px-5 py-2" id="id-fiddler" style="display:none" >
-            <div class="col">
-                <div class="input-button-options">
-                    <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
-                    <i class="far fa-copy fac-tool" alt="Regular"></i>
+        <section id="id-fiddler" style="display:none">
+            <div class="row px-5 py-2">
+                <div class="col">
+                    <div class="input-button-options">
+                        <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
+                        <i class="far fa-copy fac-tool" alt="Regular"></i>
+                    </div>
+                    <div class="input-section" >            
+                            <textarea class="area-input-fiddler" rows="20" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
+                    </div>      
                 </div>
-                <div class="input-section" >            
-                        <textarea class="area-input-fiddler" rows="20" id="input-fiddler" placeholder="Input: &#10 987436 &#10 89431 &#10 5876512" oninput="runValidation()"></textarea>
-                </div>      
+                <div class="col-md-auto my-auto text-center">
+                    <div class="button-options btn-group flex-column" role="group" aria-label="Processing buttons">
+                        <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="zero-submit" onclick="addZeroes()"> 
+                            Add 000<i class="fas fa-chevron-right fac-btn"></i>
+                        </button>
+                        <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-submit" onclick="addQuotes()">
+                            <span>Add ' ',</span> <i class="fa fa-chevron-right fac-btn"></i>
+                        </button>
+                        <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">
+                            Add '000', <i class="fa fa-chevron-right fac-btn"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col my-auto">
+                    <div class="output-button-options">
+                        <i class="fa fa-redo fac-tool" alt="Clear" onclick="clearOutputRight()" title="Clear"></i>
+                        <i class="fas fa-minus fac-tool" alt="Clear" onclick="fourPerLine()" title="1 id per row"></i>
+                        <i class="fas fa-align-justify fac-tool" alt="Clear" onclick="fourPerLine()" title="4 ids per row"></i>
+                        <i class="far fa-copy fac-tool" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard"></i>
+                    </div>
+                    <div class="output-section">
+                        <textarea class="area-output" rows="20" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-auto my-auto text-center">
-                <div class="button-options btn-group flex-column" role="group" aria-label="Processing buttons">
-                    <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="zero-submit" onclick="addZeroes()"> 
-                        Add 000<i class="fas fa-chevron-right fac-btn"></i>
-                    </button>
-                    <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-submit" onclick="addQuotes()">
-                        <span>Add ' ',</span> <i class="fa fa-chevron-right fac-btn"></i>
-                    </button>
-                    <button class="btn btn-default-color my-2 rounded text-nowrap" type="button" id="quotes-zeroes-submit" onclick="addZeroesAndQuotes(id)">
-                        Add '000', <i class="fa fa-chevron-right fac-btn"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="col my-auto">
-                <div class="output-button-options">
-                    <i class="fa fa-redo fac-tool" alt="Clear" onclick="clearOutputRight()" title="Clear"></i>
-                    <i class="fas fa-minus fac-tool" alt="Clear" onclick="fourPerLine()" title="1 id per row"></i>
-                    <i class="fas fa-align-justify fac-tool" alt="Clear" onclick="fourPerLine()" title="4 ids per row"></i>
-                    <i class="far fa-copy fac-tool" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard"></i>
-                </div>
-                <div class="output-section">
-                    <textarea class="area-output" rows="20" id="output" placeholder="Result: &#10 '0000987436', &#10 '0000089431', &#10 '0005876512'" readonly></textarea>
-                </div>
-            </div>
-        </div>
-            
+        </section>   
     
-            <!-- Date Formatter -->
-            <section id="date-formatter" style="display:none">
-                <div class="container-fluid vh-100 d-flex flex-column min-vh-100 align-items-center justify-content-center" >
-                    <div class="row">
-                        <div class="col my-auto">
-                            <div class="input-section" oninput="runDateValidation()">            
-                                <div class="text-input">
-                                    <textarea class="area-input" class="two" rows="20" cols="50" id="input-date" placeholder="Input: M/D/YYYY"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col my-auto">
-                            <div class="button-options btn-group btn-group-vertical" role="group" aria-label="Processing buttons"">
-                                <div id="button-comment"> <p></p></div>
-                                <button class="btn btn-default-color my-2 rounded" type="button" id="clear-left" onclick="clearOutput(id)" ><i class="arrow left"> </i>  Clear</button>
-                                <button class="btn btn-default-color my-2 rounded" type="button" id="formatMDY" onclick="formatDates(id)" disabled><i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i></button>
-                                <button class="btn btn-default-color my-2 rounded" type="button" id="formatYMD" onclick="formatDates(id)" disabled><i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i></button>
-                                <button class="btn btn-default-color my-2 rounded" type="button" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
-                                <button class="btn btn-default-color my-2 rounded" type="button" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
-                            </div>
-                        </div>
-                        <div class="col my-auto">    
-                            <div class="output-section">
-                                <textarea class="area-output" rows="20" cols="50" id="output-date" placeholder="Output: YYYYMMDD" readonly></textarea>
-                            </div>
+        <!-- Date Formatter -->
+        <section id="date-formatter" style="display:none">
+            <div class="row px-5 py-2">
+                <div class="col">
+                    <div class="input-button-options">
+                        <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
+                        <i class="far fa-copy fac-tool" alt="Regular"></i>
+                    </div>
+                    <div class="input-section" oninput="dtRunDateValidation()">            
+                        <div class="text-input">
+                            <textarea class="area-input" class="two" rows="20" cols="50" id="input-date" placeholder="Input: &#10 9/10/2021 &#10 4/2/2019"></textarea>
                         </div>
                     </div>
                 </div>
-            </section>
+                <div class="col-md-auto my-auto text-center">
+                    <div class="button-options btn-group flex-column" role="group" aria-label="Processing buttons"">
+                        <div id="button-comment"> <p></p></div>
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="clear-left" onclick="clearOutput(id)" >
+                            <i class="arrow left"> </i>  Clear
+                        </button>
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="formatMDY" onclick="formatDates(id)" disabled>
+                            <i class="arrow right"></i>     M/D/YYYY -> YYYYMMDD  <i class="arrow right"></i>
+                        </button>
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="formatYMD" onclick="formatDates(id)" disabled>
+                            <i class="arrow right"></i>     YYYYMMDD -> M/D/YYYY  <i class="arrow right"></i>
+                        </button>
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="clear-right" onclick="clearOutput(id)" disabled>Clear  <i class="arrow right"></i></button>
+                        <button class="btn btn-default-color my-2 rounded" type="button" id="clear-all" onclick="clearOutput(id)" disabled><i class="arrow left"> </i> Clear All   <i class="arrow right"></i></button>
+                    </div>
+                </div>
+                <div class="col my-auto">
+                    <div class="output-button-options">
+                        <i class="fa fa-redo fac-tool" alt="Clear" onclick="clearOutputRight()" title="Clear"></i>
+                        <!-- <i class="fas fa-minus fac-tool" alt="Clear" onclick="fourPerLine()" title="1 id per row"></i>
+                        <i class="fas fa-align-justify fac-tool" alt="Clear" onclick="fourPerLine()" title="4 ids per row"></i> -->
+                        <i class="far fa-copy fac-tool" alt="Regular" onclick="copyToClipboard()" title="Copy to clipboard"></i>
+                    </div> 
+                    <div class="output-section">
+                        <textarea class="area-output" rows="20" cols="50" id="output-date" placeholder="Output: YYYYMMDD" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
     
             <!-- Duplicate Checker -->
             <section id="duplicate-checker" style="display:none">
@@ -167,9 +182,25 @@
                 </div>
             </section>
 
+            <section id="progress" style="">
+                <div class="row px-5 py-2">
+                    <div class="col">
+                        <div class="input-button-options">
+                            <i class="fas fa-redo fac-tool" alt="Clear" onclick="clearInputLeft()"></i>
+                            <i class="far fa-copy fac-tool" alt="Regular"></i>
+                        </div>
+                        <div class="progress-section" >            
+                            <textarea class="progress-box" rows="20" id="progress-text" placeholder="Awaiting input" readonly></textarea>
+                        </div>      
+                    </div>
+                </div>
+            </section>   
+
     </div>
     
     
+    
+
         
   
                 <!-- <div class="wrapper-four">
